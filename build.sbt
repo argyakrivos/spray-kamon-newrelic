@@ -8,5 +8,6 @@ scalaVersion := "2.11.6"
 
 libraryDependencies ++= Seq(
   "com.twitter" %% "finagle-http" % "6.24.0",
-  "org.postgresql" % "postgresql" % "9.4-1201-jdbc41"
+  "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
+  "com.newrelic.agent.java" % "newrelic-agent" % "3.14.0"
 )
