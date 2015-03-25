@@ -25,7 +25,7 @@ common: &default_settings
   # For example, to report data to "My Application" and "My Application 2" use this:
   # app_name: My Application;My Application 2
   # This setting is required.
-  app_name: scala-spray-kamon-newrelic
+  app_name: spray-kamon-newrelic
 
   # To enable high security, set this property to true. When in high
   # security mode, the agent will use SSL and obfuscated SQL. Additionally,
@@ -110,7 +110,7 @@ common: &default_settings
     # When true, attributes will be sent to New Relic. The default is true.
     enabled: true
 
-    #A comma separated list of attribute keys whose values should
+    # A comma separated list of attribute keys whose values should
     # be sent to New Relic.
     #include:
 

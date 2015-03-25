@@ -1,6 +1,4 @@
-enablePlugins(JavaAppPackaging)
-
-name := "scala-spray-kamon-newrelic"
+name := "spray-kamon-newrelic"
 
 version := "1.0"
 
@@ -24,5 +22,7 @@ libraryDependencies ++= {
     "com.newrelic.agent.java" %  "newrelic-agent" % "3.14.0"
   )
 }
+
+enablePlugins(JavaAppPackaging)
 
 Revolver.settings

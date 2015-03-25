@@ -1,0 +1,15 @@
+{
+  "name": "Spray Kamon Newrelic Example",
+  "description": "A simple Spray app with Kamon metrics reporting to New Relic",
+  "repository": "https://github.com/argyakrivos/spray-kamon-newrelic",
+  "keywords": [
+    "spray",
+    "kamon",
+    "newrelic"
+  ],
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "newrelic:stark",
+    "papertrail:choklad"
+  ]
+}
