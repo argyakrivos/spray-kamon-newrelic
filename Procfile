@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/scala-getting-started
+web: target/universal/stage/bin/scala-spray-kamon-newrelic -J-javaagent:target/universal/stage/lib/org.aspectj.aspectjweaver-1.8.5.jar -J-javaagent:target/universal/stage/lib/com.newrelic.agent.java.newrelic-agent-3.14.0.jar NEW_RELIC_APP_NAME="scala-spray-kamon-newrelic"
