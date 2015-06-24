@@ -4,6 +4,7 @@ import java.net.URI
 import java.sql.{Connection, DriverManager}
 
 import akka.actor.Actor
+import kamon.spray.KamonTraceDirectives
 import spray.http.MediaTypes._
 import spray.routing._
 
@@ -22,25 +23,29 @@ class MyServiceActor extends Actor with MyService {
 }
 
 // this trait defines our service behavior independently from the service actor
-trait MyService extends HttpService {
+trait MyService extends HttpService with KamonTraceDirectives {
 
   val myRoute =
     path("db") {
       get {
-        complete {
-          getTicks()
+        traceName("GET: /db") {
+          complete {
+            getTicks()
+          }
         }
       }
     } ~
     pathEndOrSingleSlash {
       get {
         respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
-          complete {
-            <html>
-              <body>
-                <h1>Say hello to <i>spray-routing</i> on <i>spray-can</i>!</h1>
-              </body>
-            </html>
+          traceName("GET: /") {
+            complete {
+              <html>
+                <body>
+                  <h1>Say hello to <i>spray-routing</i> on <i>spray-can</i>!</h1>
+                </body>
+              </html>
+            }
           }
         }
       }
