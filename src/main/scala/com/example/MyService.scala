@@ -5,7 +5,9 @@ import java.sql.{Connection, DriverManager}
 
 import akka.actor.Actor
 import kamon.spray.KamonTraceDirectives
+import org.slf4j.LoggerFactory
 import spray.http.MediaTypes._
+import spray.http.StatusCodes
 import spray.routing._
 
 // we don't implement our route structure directly in the service actor because
@@ -25,26 +27,45 @@ class MyServiceActor extends Actor with MyService {
 // this trait defines our service behavior independently from the service actor
 trait MyService extends HttpService with KamonTraceDirectives {
 
+  private val log = LoggerFactory.getLogger(getClass)
+
+  private val exceptionHandler = ExceptionHandler {
+    case e =>
+      log.error(s"Unexpected error", e)
+      complete(StatusCodes.InternalServerError)
+  }
+
   val myRoute =
-    path("db") {
-      get {
-        traceName("GET: /db") {
-          complete {
-            getTicks()
+    handleExceptions(exceptionHandler) {
+      path("db") {
+        get {
+          traceName("GET: /db") {
+            complete {
+              getTicks()
+            }
           }
         }
-      }
-    } ~
-    pathEndOrSingleSlash {
-      get {
-        respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
-          traceName("GET: /") {
+      } ~
+      path("error") {
+        get {
+          traceName("GET: /error") {
             complete {
-              <html>
-                <body>
-                  <h1>Say hello to <i>spray-routing</i> on <i>spray-can</i>!</h1>
-                </body>
-              </html>
+              throw new RuntimeException("User generated error!")
+            }
+          }
+        }
+      } ~
+      pathEndOrSingleSlash {
+        get {
+          respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
+            traceName("GET: /") {
+              complete {
+                <html>
+                  <body>
+                    <h1>Say hello to <i>spray-routing</i> on <i>spray-can</i>!</h1>
+                  </body>
+                </html>
+              }
             }
           }
         }
