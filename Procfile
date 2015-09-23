@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/spray-kamon-newrelic -J-javaagent:target/universal/stage/lib/org.aspectj.aspectjweaver-1.8.6.jar -J-javaagent:target/universal/stage/lib/com.newrelic.agent.java.newrelic-agent-3.17.0.jar
+web: target/universal/stage/bin/spray-kamon-newrelic -J-javaagent:target/universal/stage/lib/org.aspectj.aspectjweaver-1.8.7.jar -J-javaagent:target/universal/stage/lib/com.newrelic.agent.java.newrelic-agent-3.20.0.jar
